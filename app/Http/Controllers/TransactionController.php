@@ -140,6 +140,13 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
+        if($id == "all") {
+            Transaction::where('id', '!=', null )->delete();
+            $response = [
+                'message' => 'All transaction deleted',
+            ];
+            return response()->json($response, 200);
+        }
         $transaction = Transaction::findOrFail($id);
 
         try {
